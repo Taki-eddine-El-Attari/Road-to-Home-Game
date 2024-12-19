@@ -64,24 +64,47 @@ Bienvenue dans Road to Home, un jeu de labyrinthe captivant développé en C++ a
 ## 📂 Structure du projet
 
 ```
-Road to Home/
-├── Graphics/
-│   ├── Backgrounds/
-│   ├── Cars/
-│   │   ├── Yellow_Car/
-│   │   ├── Blue_Car/
-│   │   └── Red_Car/
-│   ├── Buttons/
-│   ├── House/
-│   ├── Musics/
-│   ├── Volumes/
-│   └── Fonts/
-└── Source/
-    ├── Labyrinthe.cpp
-    ├── Joueur.cpp
-    ├── Button.cpp
-    ├── Niveau.cpp
-    └── Chronometre.cpp
+Road-to-Home-Game/
+├── Graphics/                   # Contient les ressources graphiques du jeu
+│   ├── Backgrounds/            # Images de fond pour les différents écrans du jeu
+│   │   ├── menu_background.png
+│   │   ├── game_background.png
+│   │   └── ...                
+│   ├── Cars/                   # Sprites des véhicules jouables
+│   │   ├── YellowCar/
+│   │   │   ├── yellow_car_up.png
+│   │   │   ├── yellow_car_down.png
+│   │   │   ├── yellow_car_left.png
+│   │   │   └── yellow_car_right.png
+│   │   ├── BlueCar/
+│   │   │   ├── blue_car_up.png
+│   │   │   └── ...
+│   │   └── RedCar/
+│   │       ├── red_car_up.png
+│   │       └── ...
+│   ├── Buttons/                # Images des boutons de l'interface utilisateur
+│   │   ├── play_button.png
+│   │   ├── settings_button.png
+│   │   ├── exit_button.png
+│   │   └── ...                 
+│   ├── House/                  # Sprite de la maison, objectif du jeu
+│   │   └── house.png
+│   ├── Music/                  # Fichier audio pour la musique de fond
+│   │   └── background_music.mp3
+│   ├── VolumeIcons/            # Icônes pour le contrôle du volume
+│   │   ├── volume_up.png
+│   │   └── mute.png
+│   └── Fonts/                  # Polices personnalisées utilisées dans le jeu
+│       └── AfacadFlux.ttf
+└── src/                        # Contient le code source du jeu
+    ├── main.cpp                
+    ├── Game.cpp                
+    ├── Player.cpp             
+    ├── Maze.cpp                
+    ├── Button.cpp             
+    ├── Timer.cpp               
+    └── Utils.cpp               
+
 ```
 ---
 
