@@ -1,26 +1,32 @@
 #include "Niveau.hpp"
 
+// Constructeur de la classe Niveau
+
 Niveau::Niveau() {
     background = LoadTexture("Graphics/Backgrounds/HOME_Difficulty.png");
-    carColorsBackground = LoadTexture("Graphics/Backgrounds/HOME_Car_Colors.png"); // Nouveau background pour la sélection de couleur de voiture
+    carColorsBackground = LoadTexture("Graphics/Backgrounds/HOME_Car_Colors.png"); 
     facileBtn = new button("Graphics/Buttons/Facile.png", {358, 220}, 1.2);
     moyenBtn = new button("Graphics/Buttons/Moyenne.png", {350, 370}, 1.3);
     difficileBtn = new button("Graphics/Buttons/Difficile.png", {350, 520}, 1.3);
-    startMazeBtnY = new button("Graphics/Buttons/Y_Car_But.png", {350, 200}, 1.2); // Bouton pour débuter le labyrinthe avec voiture jaune
-    startMazeBtnB = new button("Graphics/Buttons/B_Car_But.png", {350, 370}, 1.2); // Bouton pour débuter le labyrinthe avec voiture bleue
-    startMazeBtnR = new button("Graphics/Buttons/R_Car_But.png", {350, 540}, 1.2); // Bouton pour débuter le labyrinthe avec voiture rouge
+    voitureJauneBtn = new button("Graphics/Buttons/Y_Car_But.png", {350, 200}, 1.2); 
+    voitureBleuBtn = new button("Graphics/Buttons/B_Car_But.png", {350, 370}, 1.2); 
+    voitureRougeBtn = new button("Graphics/Buttons/R_Car_But.png", {350, 540}, 1.2);
 }
+
+// Destructeur de la classe Niveau
 
 Niveau::~Niveau() {
     UnloadTexture(background);
-    UnloadTexture(carColorsBackground); // Libérer la mémoire du nouveau background
+    UnloadTexture(carColorsBackground); 
     delete facileBtn;
     delete moyenBtn;
     delete difficileBtn;
-    delete startMazeBtnY; // Libérer la mémoire du bouton jaune
-    delete startMazeBtnB; // Libérer la mémoire du bouton bleu
-    delete startMazeBtnR; // Libérer la mémoire du bouton rouge
+    delete voitureJauneBtn; 
+    delete voitureBleuBtn; 
+    delete voitureRougeBtn; 
 }
+
+// Méthode pour afficher les boutons de difficulté
 
 void Niveau::afficher() {
     DrawTexture(background, 0, 0, WHITE);
@@ -47,29 +53,33 @@ void Niveau::afficher() {
     }
 }
 
-void Niveau::afficherStartMaze() {
-    DrawTexture(carColorsBackground, 0, 0, WHITE); // Utiliser le nouveau background
+// Méthode pour afficher les boutons de couleur de voiture
+
+void Niveau::afficherCouleurs() {
+    DrawTexture(carColorsBackground, 0, 0, WHITE); 
     Vector2 mousePos = GetMousePosition();
     
-    // Appliquer l'effet hover pour chaque bouton de voiture
-    if (startMazeBtnY->isHovered(mousePos)) {
-        startMazeBtnY->DrawWithScale(1.1f);
+    // Appliquer l'effet hover pour chaque bouton de voiture 
+    if (voitureJauneBtn->isHovered(mousePos)) {
+        voitureJauneBtn->DrawWithScale(1.1f);
     } else {
-        startMazeBtnY->Draw();
+        voitureJauneBtn->Draw();
     }
     
-    if (startMazeBtnB->isHovered(mousePos)) {
-        startMazeBtnB->DrawWithScale(1.1f);
+    if (voitureBleuBtn->isHovered(mousePos)) {
+        voitureBleuBtn->DrawWithScale(1.1f);
     } else {
-        startMazeBtnB->Draw();
+        voitureBleuBtn->Draw();
     }
     
-    if (startMazeBtnR->isHovered(mousePos)) {
-        startMazeBtnR->DrawWithScale(1.1f);
+    if (voitureRougeBtn->isHovered(mousePos)) {
+        voitureRougeBtn->DrawWithScale(1.1f);
     } else {
-        startMazeBtnR->Draw();
+        voitureRougeBtn->Draw();
     }
 }
+
+// Méthode pour vérifier la sélection de la difficulté
 
 int Niveau::verifierSelection(Vector2 mousePos, bool mousePres) {
     if (facileBtn->isPressed(mousePos, mousePres)) return 13;
@@ -78,9 +88,11 @@ int Niveau::verifierSelection(Vector2 mousePos, bool mousePres) {
     return 0;
 }
 
-int Niveau::verifierStartMaze(Vector2 mousePos, bool mousePres) { 
-    if (startMazeBtnY->isPressed(mousePos, mousePres)) return 1; 
-    if (startMazeBtnB->isPressed(mousePos, mousePres)) return 2;
-    if (startMazeBtnR->isPressed(mousePos, mousePres)) return 3;
+// Méthode pour vérifier la sélection de la couleur de la voiture
+
+int Niveau::verifierMenuCouleurs(Vector2 mousePos, bool mousePres) { 
+    if (voitureJauneBtn->isPressed(mousePos, mousePres)) return 1; 
+    if (voitureBleuBtn->isPressed(mousePos, mousePres)) return 2;
+    if (voitureRougeBtn->isPressed(mousePos, mousePres)) return 3;
     return 0;
 }

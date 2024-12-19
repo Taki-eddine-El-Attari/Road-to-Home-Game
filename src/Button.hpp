@@ -10,7 +10,7 @@ private:
     float scale;
     bool isVolumeButton;
     bool isMuted;
-    Music* backgroundMusic;  // Changé en pointeur
+    Music* backgroundMusic; 
 
 public:
     button(const char* imagepath, Vector2 imageposition, float scale, bool isVolume = false);

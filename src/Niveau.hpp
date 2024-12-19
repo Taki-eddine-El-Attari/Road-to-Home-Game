@@ -10,19 +10,19 @@ public:
     ~Niveau();
 
     void afficher();
-    void afficherStartMaze();
+    void afficherCouleurs();
     int verifierSelection(Vector2 mousePos, bool mousePres);
-    int verifierStartMaze(Vector2 mousePos, bool mousePres);
+    int verifierMenuCouleurs(Vector2 mousePos, bool mousePres);
 
 private:
     Texture2D background;
-    Texture2D carColorsBackground; // Nouveau background pour la sélection de couleur de voiture
+    Texture2D carColorsBackground; 
     button* facileBtn;
     button* moyenBtn;
     button* difficileBtn;
-    button* startMazeBtnY; // Bouton pour débuter le labyrinthe avec voiture jaune
-    button* startMazeBtnB; // Bouton pour débuter le labyrinthe avec voiture bleue
-    button* startMazeBtnR; // Bouton pour débuter le labyrinthe avec voiture rouge
+    button* voitureJauneBtn; 
+    button* voitureBleuBtn; 
+    button* voitureRougeBtn; 
 };
 
 #endif // NIVEAU_HPP

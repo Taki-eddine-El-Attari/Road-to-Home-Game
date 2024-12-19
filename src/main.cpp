@@ -12,7 +12,6 @@
 
 using namespace std;
 
-
 // Fonction principale
 int main() {
     // Dimensions de la fenêtre
@@ -41,23 +40,20 @@ int main() {
     bool difficultyMenu = false;
     int largeur = 0; // Largeur du labyrinthe / facile = 13, moyen = 17, difficile = 21
     int hauteur = 0; // Hauteur du labyrinthe / facile = 13, moyen = 17, difficile = 21
-    
+    bool CarsColors = false; 
+
     Niveau niveau;
     Labyrinthe* labyrinthe = nullptr;
 
     Joueur joueur(joueurTextureRight, joueurTextureLeft, joueurTextureUp, joueurTextureDown, houseTexture, 1, 1);
 
-    // Remplacer l'initialisation de l'audio et du bouton de volume par :
     button volumeButton("Graphics/Volumes/volume-up.png", {(float)(screenWidth - 70), 20}, 0.60, true);
     
-    bool CarsColors = false; // Indicateur pour afficher les couleurs de voiture
-
-    // Initialiser la classe Chronometre
     Chronometre chronometre;  // Remplacer Jeu jeu
 
     // Boucle de jeu
     while (!WindowShouldClose() && !exit) { // Fonction pour vérifier si la touche échap est pressée et que le booléen exit est false
-        Vector2 mousePos = GetMousePosition(); // Créer une position de la souris à partir de la structure Vector2 et stocker les dimensions de la souris avec cette fonction
+        Vector2 mousePos = GetMousePosition(); // Créer une position de la souris à partir de la structure Vector2 et stocker les dimensions de la souris 
         bool mousePres = IsMouseButtonPressed(MOUSE_BUTTON_LEFT); // Vérifier si le bouton gauche de la souris est pressé avec cette fonction
 
         // Mettre à jour la musique
@@ -77,16 +73,16 @@ int main() {
                 if (startButton.isHovered(mousePos)) {
                     startButton.DrawWithScale(1.1f); // Agrandir de 10% quand survolé
                 } else {
-                    startButton.Draw(); // Taille normale
+                    startButton.Draw(); 
                 }
                 
                 if (exitButton.isHovered(mousePos)) {
                     exitButton.DrawWithScale(1.1f); // Agrandir de 10% quand survolé
                 } else {
-                    exitButton.Draw(); // Taille normale
+                    exitButton.Draw(); 
                 }
 
-                // Dessiner les boutons start et exit
+                // Vérifier si les boutons sont pressés
                 if (startButton.isPressed(mousePos, mousePres)) {
                     difficultyMenu = true;
                 }
@@ -106,8 +102,8 @@ int main() {
                     }
                 } else { // Si le menu de sélection de couleur de voiture est affiché
 
-                    niveau.afficherStartMaze();
-                    int carSelection = niveau.verifierStartMaze(mousePos, mousePres);
+                    niveau.afficherCouleurs();
+                    int carSelection = niveau.verifierMenuCouleurs(mousePos, mousePres);
                     if (carSelection > 0) {
                         if (carSelection == 1) {
                             Joueur::DessinerVoitureJaune(joueurTextureRight, joueurTextureLeft, joueurTextureUp, joueurTextureDown);
@@ -132,10 +128,10 @@ int main() {
                 DrawTexture(mazeBackground, 0, 0, WHITE);
                 DrawTextEx(customFont, TextFormat("%d", countdown), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("%d", countdown), 100, 1).x / 2), (float)(screenHeight / 2 - 70)}, 100, 1, RED);
                 DrawTextEx(customFont, "Preparer vous !", {(float)(screenWidth / 2 - MeasureTextEx(customFont, "Preparer vous !", 60, 1).x / 2), (float)(screenHeight / 2 + 20)}, 60, 1, WHITE);
-                volumeButton.Draw();  // Ajouter ici
+                volumeButton.Draw(); 
                 EndDrawing();
                 
-                volumeButton.updateVolume();  // Ajouter ici
+                volumeButton.updateVolume();  
                 
                 currentTime = GetTime();
                 if (currentTime - startTime >= 1.0) {
@@ -149,22 +145,21 @@ int main() {
             }
             
             // Taille d'une case en pixels
-            int tailleCase = 35; // Taille d'une case
-            
-            chronometre.startTimer(); // Démarrer le timer
+            int tailleCase = 35; 
 
             // Calculer les décalages pour centrer le labyrinthe
             int offsetX = (screenWidth - largeur * tailleCase) / 2;
             int offsetY = (screenHeight - hauteur * tailleCase) / 2;
-            // Afficher le compte à rebours avant de commencer
             
+            chronometre.startTimer(); // Démarrer le timer
 
             while (!WindowShouldClose() && gameStarted) { // Boucle principale
-                volumeButton.updateVolume();  // Mettre à jour la musique dans la boucle de jeu
+
+                volumeButton.updateVolume();  // Mettre à jour le volume
                 
                 ClearBackground(RAYWHITE); // Effacer l'écran
 
-                // Dessiner le background du labyrinthe avant tout
+                // Dessiner le background du labyrinthe 
                 DrawTexture(mazeBackground, 0, 0, WHITE);
 
                 // Dessiner le labyrinthe
@@ -176,31 +171,36 @@ int main() {
                 // Gérer le clic sur le bouton de volume 
                 volumeButton.Draw();
 
-                chronometre.updateTimer(); // Mettre à jour le timer
                 chronometre.drawTimer(screenWidth, screenHeight, customFont); // Dessiner le timer
-
-                // First line with shadow
+                chronometre.updateTimer(); // Mettre à jour le timer
+                
+                // Avec ombre
                 DrawTextEx(customFont, "Cliquer sur ", {(float)(screenWidth / 2 - MeasureText("Cliquer sur ESPACE pour reinitialiser le labyrinthe", 24) / 2) + 2, (float)(screenHeight - 70) + 2}, 40, 1, BLACK);
                 DrawTextEx(customFont, "ESPACE", {(float)(screenWidth / 2 - MeasureText("Cliquer sur ESPACE pour reinitialiser le labyrinthe", 24) / 2 + MeasureText("Cliquer sur   ", 20)) + 2, (float)(screenHeight - 70) + 2}, 40, 1, BLACK);
                 DrawTextEx(customFont, " pour reinitialiser le labyrinthe", {(float)(screenWidth / 2 - MeasureText("Cliquer sur ESPACE pour reinitialiser le labyrinthe", 24) / 2 + MeasureText("Cliquer sur ESPACE   ", 20)) + 2, (float)(screenHeight - 70) + 2}, 40, 1, BLACK);
-
+                // Sans ombre
                 DrawTextEx(customFont, "Cliquer sur ", {(float)(screenWidth / 2 - MeasureText("Cliquer sur ESPACE pour reinitialiser le labyrinthe", 24) / 2), (float)(screenHeight - 70)}, 40, 1, WHITE);
                 DrawTextEx(customFont, "ESPACE", {(float)(screenWidth / 2 - MeasureText("Cliquer sur ESPACE pour reinitialiser le labyrinthe", 24) / 2 + MeasureText("Cliquer sur   ", 20)), (float)(screenHeight - 70)}, 40, 1, RED);
                 DrawTextEx(customFont, " pour reinitialiser le labyrinthe", {(float)(screenWidth / 2 - MeasureText("Cliquer sur ESPACE pour reinitialiser le labyrinthe", 24) / 2 + MeasureText("Cliquer sur ESPACE   ", 20)), (float)(screenHeight - 70)}, 40, 1, WHITE);
                 
-                // Second line with shadow
+                // Avec ombre
                 DrawTextEx(customFont, "Cliquer sur ", {(float)(screenWidth / 2 - MeasureText("Cliquer sur H pour retourner a la page d'accueil", 24) / 2) + 2, (float)(screenHeight - 40) + 2}, 40, 1, BLACK);
                 DrawTextEx(customFont, "H", {(float)(screenWidth / 2 - MeasureText("Cliquer surpour retourner a la page d'accueil", 24) / 2 + MeasureText("Cliquer sur ", 20)) + 2, (float)(screenHeight - 40) + 2}, 40, 1, BLACK);
                 DrawTextEx(customFont, " pour retourner a la page d'accueil", {(float)(screenWidth / 2 - MeasureText("Cliquer sur H pour retourner a la page d'accueil", 24) / 2 + MeasureText("Cliquer sur H   ", 20)) + 2, (float)(screenHeight - 40) + 2}, 40, 1, BLACK);
-
+                // Sans ombre
                 DrawTextEx(customFont, "Cliquer sur ", {(float)(screenWidth / 2 - MeasureText("Cliquer sur H pour retourner a la page d'accueil", 24) / 2), (float)(screenHeight - 40)}, 40, 1, WHITE);
                 DrawTextEx(customFont, "H", {(float)(screenWidth / 2 - MeasureText("Cliquer surpour retourner a la page d'accueil", 24) / 2 + MeasureText("Cliquer sur ", 20)), (float)(screenHeight - 40)}, 40, 1, RED);
                 DrawTextEx(customFont, " pour retourner a la page d'accueil", {(float)(screenWidth / 2 - MeasureText("Cliquer sur H pour retourner a la page d'accueil", 24) / 2 + MeasureText("Cliquer sur H   ", 20)), (float)(screenHeight - 40)}, 40, 1, WHITE);
-                static float meilleurScore = 0.00f; // Initialiser le meilleur score à une valeur très élevée
+                
+                static float meilleurScore = 0.00f; // Initialiser le meilleur score à la valeur 0
 
-                if (joueur.aAtteintSortie(largeur, hauteur)) {
+                if (joueur.aAtteintSortie(largeur, hauteur)) { // Si le joueur a atteint la sortie
+
                     chronometre.stopTimer(); // Arrêter le timer
                     static bool Newscore = false;
+                    volumeButton.Draw();
+                    DrawTexture(bestRecordBackground, 0, 0, WHITE);
+
                     
                     // Mettre à jour le meilleur score si le score actuel est meilleur
                     if (meilleurScore == 0.00f)
@@ -212,14 +212,8 @@ int main() {
                         Newscore = true;
                     }
 
-                    // Utiliser la texture déjà chargée
-                    DrawTexture(bestRecordBackground, 0, 0, WHITE);
-
-                    // Afficher les scores avec ombre
-                    DrawTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), 50, 1).x / 2) + 2, (float)(screenHeight / 2 - 80) + 2}, 50, 1, BLACK); // Afficher le meilleur score avec ombre
-                    DrawTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), 50, 1).x / 2), (float)(screenHeight / 2 - 80)}, 50, 1, WHITE);
-                   
-                    if (Newscore == true) {
+                    // Si un nouveau record est établi
+                    if (Newscore == true) { 
                         static float alpha = 0.0f;
                         static bool increasing = true;
                         static float lastTime = GetTime();
@@ -247,64 +241,62 @@ int main() {
                             Newscore = false;
                         }
                     }
+                    // Afficher les scores avec ombre
+                    DrawTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), 50, 1).x / 2) + 2, (float)(screenHeight / 2 - 80) + 2}, 50, 1, BLACK); // Afficher le meilleur score avec ombre
+                    DrawTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("Le meilleur record : %.2f s", meilleurScore), 50, 1).x / 2), (float)(screenHeight / 2 - 80)}, 50, 1, WHITE);
+                   
+                    
 
                     DrawTextEx(customFont, TextFormat("Votre Score : %.2f s", chronometre.timer), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("Votre record : %.2f s", chronometre.timer), 50, 1).x / 2) + 2, (float)(screenHeight / 2 - 20) + 2}, 50, 1, BLACK); // Afficher le score avec ombre
                     DrawTextEx(customFont, TextFormat("Votre Score : %.2f s", chronometre.timer), {(float)(screenWidth / 2 - MeasureTextEx(customFont, TextFormat("Votre record : %.2f s", chronometre.timer), 50, 1).x / 2), (float)(screenHeight / 2 - 20)}, 50, 1, WHITE);
 
-                    // Shadow text for replay message
                     DrawTextEx(customFont, "Entrer ESPACE pour rejouer", {(float)(screenWidth / 2 - MeasureTextEx(customFont, "Entrer ESPACE pour rejouer", 35, 1).x / 2) + 1, (float)(screenHeight - 80) + 1}, 35, 1, BLACK);
                     DrawTextEx(customFont, "Entrer ESPACE pour rejouer", {(float)(screenWidth / 2 - MeasureTextEx(customFont, "Entrer ESPACE pour rejouer", 35, 1).x / 2), (float)(screenHeight - 80)}, 35, 1, WHITE);
 
-                    // Shadow text for return message
                     DrawTextEx(customFont, "Entrer H pour retourner a la page d'accueil", {(float)(screenWidth / 2 - MeasureTextEx(customFont, "Entrer H pour retourner a la page d'accueil", 35, 1).x / 2) + 1, (float)(screenHeight - 40) + 1}, 35, 1, BLACK);
                     DrawTextEx(customFont, "Entrer H pour retourner a la page d'accueil", {(float)(screenWidth / 2 - MeasureTextEx(customFont, "Entrer H pour retourner a la page d'accueil", 35, 1).x / 2), (float)(screenHeight - 40)}, 35, 1, WHITE);
-
-
-                    // Dessiner le bouton de volume
-                    volumeButton.Draw();
                     
                 }
               
-
-                // Dessiner le bouton de volume dans toutes les phases du jeu
                 volumeButton.Draw();
 
-                EndDrawing(); // Fin du dessin
+                EndDrawing();
 
                 if (IsKeyPressed(KEY_SPACE)) {
                     // Réinitialiser le labyrinthe
                     delete labyrinthe; 
-                    labyrinthe = new Labyrinthe(largeur, hauteur); // Réinitialiser labyrinthe
+                    labyrinthe = new Labyrinthe(largeur, hauteur); 
                     // Réinitialiser la position du joueur
                     joueur.reinitialiser(1, 1);
                     chronometre = Chronometre(); // Réinitialiser le chronomètre
-                    chronometre.startTimer(); // Démarrer le timer
+                    chronometre.startTimer(); 
                 }
 
-
-                if (IsKeyPressed(KEY_ESCAPE) || WindowShouldClose()) {
-                    exit = true; // Changer la valeur de exit pour fermer la fenêtre raylib
-                    CloseWindow(); // Fermer la fenêtre raylib
-                }
                 if (IsKeyPressed(KEY_H)) {
-                    gameStarted = false; // Changer la valeur de gameStarted pour revenir à l'écran de démarrage
-                    difficultyMenu = false; // Revenir au menu principal
-                    CarsColors = false; // Réinitialiser l'affichage de menu des couleurs
-                    
+                    // Revenir à l'écran de démarrage
+                    CarsColors = false; 
+                    difficultyMenu = false; 
+                    gameStarted = false; 
+                
                     joueur.reinitialiser(1, 1); // Réinitialiser la position du joueur
                     meilleurScore = 0.00f; // Réinitialiser le meilleur score
                     chronometre = Chronometre(); // Réinitialiser le chronomètre
                 }
+                
+                if (IsKeyPressed(KEY_ESCAPE) || WindowShouldClose()) {
+                    exit = true; // Changer la valeur de exit pour fermer la fenêtre raylib
+                    CloseWindow(); // Fermer la fenêtre raylib 
+                }
             }
         }
 
-        // Dessiner le bouton de volume (une seule fois à la fin de la boucle principale)
         volumeButton.Draw();
         
         EndDrawing();
     }
+
+    // Libérer la mémoire
     
-    // Nettoyer les ressources avant de quitter (ajouter avant CloseWindow)
     if (labyrinthe != nullptr) {
         delete labyrinthe;
     }
@@ -313,7 +305,7 @@ int main() {
     UnloadTexture(background);
     UnloadTexture(houseTexture);
     UnloadTexture(bestRecordBackground);
-    UnloadTexture(mazeBackground); // Libérer la texture du background du labyrinthe
+    UnloadTexture(mazeBackground); 
     UnloadTexture(joueurTextureRight);
     UnloadTexture(joueurTextureLeft);
     UnloadTexture(joueurTextureUp);

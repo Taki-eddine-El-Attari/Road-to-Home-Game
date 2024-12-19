@@ -1,5 +1,7 @@
 #include "button.hpp"
 
+// Constructeur de la classe button
+
 button::button(const char* imagepath, Vector2 imageposition, float buttonScale, bool isVolume) 
     : position(imageposition), scale(buttonScale), isVolumeButton(isVolume), isMuted(false), backgroundMusic(nullptr) {
     Image image = LoadImage(imagepath);
@@ -19,6 +21,8 @@ button::button(const char* imagepath, Vector2 imageposition, float buttonScale, 
     }
 }
 
+// Destructeur de la classe button
+
 button::~button() {
     UnloadTexture(texture);
     if (isVolumeButton && backgroundMusic != nullptr) {
@@ -29,23 +33,33 @@ button::~button() {
     }
 }
 
+// Méthode pour dessiner le bouton
+
 void button::Draw() {
     DrawTextureV(texture, position, WHITE);
 }
+
+// Méthode pour vérifier si le bouton est pressé
 
 bool button::isPressed(Vector2 mousePosition, bool mousePressed) {
     Rectangle rect = {position.x, position.y, static_cast<float>(texture.width), static_cast<float>(texture.height)};
     return CheckCollisionPointRec(mousePosition, rect) && mousePressed;
 }
 
+// Méthode pour obtenir les limites du bouton
+
 Rectangle button::getBounds() const {
     return Rectangle{position.x, position.y, static_cast<float>(texture.width), static_cast<float>(texture.height)};
 }
+
+// Méthode pour vérifier si le bouton est survolé
 
 bool button::isHovered(Vector2 mousePosition) const {
     Rectangle rect = {position.x, position.y, static_cast<float>(texture.width), static_cast<float>(texture.height)};
     return CheckCollisionPointRec(mousePosition, rect);
 }
+
+// Méthode pour dessiner le bouton avec une échelle
 
 void button::DrawWithScale(float scale) {
     float centerX = position.x + texture.width / 2;
@@ -58,6 +72,8 @@ void button::DrawWithScale(float scale) {
     Rectangle dest = {newX, newY, texture.width * scale, texture.height * scale};
     DrawTexturePro(texture, source, dest, {0, 0}, 0, WHITE);
 }
+
+// Méthode pour mettre à jour le volume
 
 void button::updateVolume() {
     if (!isVolumeButton || backgroundMusic == nullptr) return;
