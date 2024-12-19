@@ -108,7 +108,33 @@ Road-to-Home-Game/
 ```
 ---
 
-## 🖼️ Screenshots
+## 📸 Quelques captures d'écran
+
+### 1️⃣ **Page d'accueil**
+![Page d'acceuil](https://github.com/user-attachments/assets/6e868416-3cbd-40a8-b8d9-29d485a02038)
+
+> Aperçu de l'écran principal simple et intuitif, avec deux boutons : Start pour commencer une partie et Exit pour quitter l'application.
 
 ---
+
+### 2️⃣ **Personnalisation des couleurs des véhicules**
+![Personnalisation des véhicules](https://github.com/user-attachments/assets/125afb04-bdd9-48a9-a95c-4334cc9ac529)
+> Sélectionnez la couleur de votre véhicule (jaune, bleu ou rouge) pour personnaliser votre expérience de jeu.
+
+---
+
+### 3️⃣ **Page du labyrinthe**
+![Labyrinthe en jeu](https://github.com/user-attachments/assets/0f12f022-9c9f-4095-8a8c-491e14680bab)
+> Naviguez à travers des labyrinthes générés procéduralement, avec une vue claire de votre véhicule et de l’objectif final.
+
+---
+
+## 🌟 Remerciements
+
+- **Membres de l'équipe**:
+    - Taki eddine El attari
+    - Fahima El haddaoui
+    - Fatima Ezzahra Chayeb
+    - Rabab Ziti
+- **Encadrante**: Ikram Ben Abdel Ouahab
 
