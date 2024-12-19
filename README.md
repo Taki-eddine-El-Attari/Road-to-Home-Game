@@ -1,4 +1,4 @@
-# Road to Home Game
+# Road to Home 
 
 Bienvenue dans Road to Home, un jeu de labyrinthe captivant développé en C++ avec la bibliothèque graphique Raylib. Votre mission est de guider votre véhicule à travers des labyrinthes générés procéduralement pour atteindre votre maison.
 
